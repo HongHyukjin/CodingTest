@@ -1,0 +1,39 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] priorities, int location) {
+        class Task{
+            int location;
+            int priority;
+            public Task(int location, int priority){
+                this.location = location;
+                this.priority = priority;
+            }
+        }
+        int answer = 0;
+        Queue<Task> queue = new LinkedList<>();
+        for(int i=0; i<priorities.length; i++){
+            queue.add(new Task(i, priorities[i]));
+        }
+        while(!queue.isEmpty()){
+            Task cur = queue.poll();
+            boolean flag = false;
+            for(Task t : queue){
+                if(t.priority > cur.priority){
+                    flag = true;
+                    queue.add(cur);
+                    break;
+                }
+            }
+            if(flag == false){
+                answer++;
+                if(cur.location == location){
+                    return answer;
+                }
+            }
+            
+        }
+        
+        
+        return answer;
+    }
+}
